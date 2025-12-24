@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VNSONS Register</title>
+  <style>
+    /* Background with your chosen image and subtle dark overlay */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      height: 100vh;
+      background: 
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), /* dark overlay */
+        url('https://img.freepik.com/premium-photo/wide-shot-modern-fashion-shop-interior_249974-19178.jpg?semt=ais_hybrid&w=740&q=80') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .register-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      width: 360px;
+      backdrop-filter: blur(6px);
+    }
+
+    .register-box h2 {
+      text-align: center;
+      margin-bottom: 22px;
+      font-weight: 700;
+      color: #222;
+      font-family: 'Arial Black', Arial, sans-serif;
+      letter-spacing: 1.2px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #444;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+      margin-top: 28px;
+      width: 100%;
+      background-color: #007bff;
+      border: none;
+      padding: 14px 0;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      letter-spacing: 1.2px;
+      transition: background-color 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+      min-height: 20px;
+      font-size: 14px;
+    }
+    .message.error { color: #dc3545; }
+    .message.success { color: #28a745; }
+
+    .redirect {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+    .redirect a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .redirect a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-box">
+    <h2>Create VNSONS Account</h2>
+    
+    <label for="email">Email Address</label>
+    <input type="email" id="email" placeholder="example@mail.com" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="10-digit phone number" required />
+
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="Choose a username" required />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="At least 6 characters" required />
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" placeholder="Re-enter password" required />
+
+    <button onclick="register()">Register</button>
+
+    <p class="message" id="message"></p>
+    <p class="redirect">Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+
+<script>
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+  function validatePhone(phone) {
+    const re = /^\d{10}$/;
+    return re.test(phone);
+  }
+
+  function register() {
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const message = document.getElementById("message");
+
+    message.className = "message";
+    message.textContent = "";
+
+    if (!email || !phone || !username || !password || !confirmPassword) {
+      message.classList.add("error");
+      message.textContent = "Please fill in all fields.";
+      return;
+    }
+    if (!validateEmail(email)) {
+      message.classList.add("error");
+      message.textContent = "Please enter a valid email address.";
+      return;
+    }
+    if (!validatePhone(phone)) {
+      message.classList.add("error");
+      message.textContent = "Phone number must be 10 digits.";
+      return;
+    }
+    if (username.length < 3) {
+      message.classList.add("error");
+      message.textContent = "Username must be at least 3 characters.";
+      return;
+    }
+    if (password.length < 6) {
+      message.classList.add("error");
+      message.textContent = "Password must be at least 6 characters.";
+      return;
+    }
+    if (password !== confirmPassword) {
+      message.classList.add("error");
+      message.textContent = "Passwords do not match.";
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (users.some(u => u.email === email)) {
+      message.classList.add("error");
+      message.textContent = "Email already registered.";
+      return;
+    }
+    if (users.some(u => u.username === username)) {
+      message.classList.add("error");
+      message.textContent = "Username already taken.";
+      return;
+    }
+
+    users.push({ email, phone, username, password });
+    localStorage.setItem("users", JSON.stringify(users));
+
+    message.classList.add("success");
+    message.textContent = "Registration successful! Redirecting...";
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VNSONS Login</title>
+  <style>
+    /* Background with the same image and subtle dark overlay */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      height: 100vh;
+      background: 
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url('https://img.freepik.com/premium-photo/wide-shot-modern-fashion-shop-interior_249974-19178.jpg?semt=ais_hybrid&w=740&q=80') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      width: 360px;
+      backdrop-filter: blur(6px);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 22px;
+      font-weight: 700;
+      color: #222;
+      font-family: 'Arial Black', Arial, sans-serif;
+      letter-spacing: 1.2px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #444;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+      margin-top: 28px;
+      width: 100%;
+      background-color: #007bff;
+      border: none;
+      padding: 14px 0;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      letter-spacing: 1.2px;
+      transition: background-color 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: 600;
+      text-align: center;
+      min-height: 20px;
+      font-size: 14px;
+    }
+    .message.error { color: #dc3545; }
+    .message.success { color: #28a745; }
+
+    .redirect {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+    .redirect a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .redirect a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>VNSONS Login</h2>
+    
+    <label for="username">Username</label>
+    <input type="text" id="username" placeholder="Enter your username" required />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter your password" required />
+
+    <button onclick="login()">Login</button>
+
+    <p class="message" id="message"></p>
+    <p class="redirect">Don't have an account? <a href="register.html">Register here</a></p>
+  </div>
+
+<script>
+  function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("message");
+
+    message.className = "message";
+    message.textContent = "";
+
+    if (!username || !password) {
+      message.classList.add("error");
+      message.textContent = "Please enter both username and password.";
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (!user) {
+      message.classList.add("error");
+      message.textContent = "Invalid username or password.";
+      return;
+    }
+
+    // Store logged in user info (optional)
+    localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+    message.classList.add("success");
+    message.textContent = "Login successful! Redirecting to shop...";
+
+    setTimeout(() => {
+      window.location.href = "index.html"; // Redirect to your shop page
+    }, 1500);
+  }
+</script>
+
+</body>
+</html>

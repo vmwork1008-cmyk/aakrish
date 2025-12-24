@@ -1,0 +1,114 @@
+/* BODY & BACKGROUND */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+              url('https://img.freepik.com/premium-photo/wide-shot-modern-fashion-shop-interior_249974-19178.jpg?semt=ais_hybrid&w=740&q=80') no-repeat center center/cover;
+  min-height: 100vh;
+  color: #222;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  padding: 12px 25px;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 24px;
+  color: #222;
+}
+
+.nav-links span {
+  margin-left: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.search {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.5);
+}
+
+/* PRODUCTS GRID */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 20px;
+  padding: 25px;
+}
+
+.product-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.product-card h3 {
+  margin: 10px 0 5px;
+  font-size: 16px;
+}
+
+.product-card p {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 15px;
+  margin: 0 0 10px;
+}
+
+.product-card button {
+  margin-bottom: 12px;
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.product-card button:hover {
+  background: #0056b3;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 15px 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 -5px 10px rgba(0,0,0,0.15);
+  margin-top: 30px;
+}

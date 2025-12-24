@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VNSONS Online Shop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">VNSONS</div>
+
+  <input
+    type="text"
+    class="search"
+    id="searchInput"
+    placeholder="Search clothes..."
+    oninput="filterProducts()"
+  >
+
+  <div class="nav-links">
+    <span onclick="logout()">Logout</span>
+    <span onclick="goCart()">Cart 🛒 <span id="cartCount">0</span></span>
+  </div>
+</header>
+
+<main>
+  <div class="products" id="productList"></div>
+</main>
+
+<footer>© 2025 VNSONS Online Shopping</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
